@@ -2,13 +2,13 @@ import { useState } from "react";
 import "./App.css";
 import Numpad from "./Components/Numpad/Numpad";
 import FormatDisplay from "./Utils/Input";
-import { OperationSymbol } from "./Constants/Operations";
+import { OperationSymbol } from "./Constants/OperationSymbols";
 
 function App() {
   const [display, setDisplay] = useState({
     equation: "0",
     operation: "",
-    previousEquations: ["Equation 1", "Equation 2", "Equation 3"] as string[],
+    previousEquations: [] as string[],
     index: -1,
   });
 

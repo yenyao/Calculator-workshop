@@ -10,4 +10,5 @@ export enum OperationSymbol {
   Add = "+",
   Subtract = "-",
   Root = "√",
+  ToggleNegative = "±",
 }
