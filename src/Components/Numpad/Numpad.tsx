@@ -40,6 +40,7 @@ function Numpad({ CalcInput }: Props) {
           <CalcButton displayKey={getKeyPressed} symbol="0" />
           <CalcButton displayKey={getKeyPressed} symbol="=" />
           <CalcButton displayKey={getKeyPressed} symbol="/" />
+          <CalcButton displayKey={getKeyPressed} symbol="±" />
         </div>
       </div>
     </div>

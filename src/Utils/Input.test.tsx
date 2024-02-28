@@ -3,7 +3,8 @@
  */
 import "@testing-library/jest-dom";
 import FormatEquation from "./Input";
-import { OperationSymbol } from "../Constants/Operations";
+import { OperationSymbol } from "../Constants/OperationSymbols";
+import { ErrorCode } from "../Constants/ErrorCodes";
 
 describe("Button functions", () => {
   describe("Number inputs", () => {
@@ -49,27 +50,6 @@ describe("Button functions", () => {
       ).toStrictEqual(expectedResult);
     });
 
-    test("user should be able to input a negative number", () => {
-      const expectedResult = {
-        equation: "-",
-        operation: "",
-        previousEquations: [],
-        index: 0,
-      };
-
-      expect(
-        FormatEquation(
-          {
-            equation: "0",
-            operation: "",
-            previousEquations: [],
-            index: 0,
-          },
-          "-"
-        )
-      ).toStrictEqual(expectedResult);
-    });
-
     test("number should append when input is a number when a number and operator already exists", () => {
       const expectedResult = {
         equation: "9 + 99",
@@ -96,7 +76,7 @@ describe("Button functions", () => {
         equation: "3",
         operation: OperationSymbol.Equal,
         previousEquations: ["9 + 9"],
-        index: 0,
+        index: -1,
       };
 
       expect(
@@ -116,7 +96,7 @@ describe("Button functions", () => {
   describe("Operator inputs", () => {
     test("should not change when input is an operator and no other buttons have been pressed", () => {
       const expectedResult = {
-        equation: "0",
+        equation: ErrorCode.InvalidOperation,
         operation: "",
         previousEquations: [],
         index: 0,
@@ -140,7 +120,7 @@ describe("Button functions", () => {
         equation: "2 + ",
         operation: OperationSymbol.Add,
         previousEquations: [],
-        index: 0,
+        index: -1,
       };
 
       expect(
@@ -237,7 +217,7 @@ describe("Button functions", () => {
             equation: "2 + 20",
             operation: OperationSymbol.Add,
             previousEquations: [],
-            index: -1,
+            index: 0,
           },
           OperationSymbol.Equal
         )
@@ -258,7 +238,7 @@ describe("Button functions", () => {
             equation: "0.1 + 0.2",
             operation: OperationSymbol.Add,
             previousEquations: [],
-            index: -1,
+            index: 0,
           },
           OperationSymbol.Equal
         )
@@ -279,7 +259,7 @@ describe("Button functions", () => {
             equation: "-2 + 3",
             operation: OperationSymbol.Equal,
             previousEquations: [],
-            index: -1,
+            index: 0,
           },
           OperationSymbol.Equal
         )
@@ -300,7 +280,7 @@ describe("Button functions", () => {
             equation: "3 - 2",
             operation: "-",
             previousEquations: [],
-            index: -1,
+            index: 0,
           },
           OperationSymbol.Equal
         )
@@ -321,7 +301,7 @@ describe("Button functions", () => {
             equation: "4 / 2",
             operation: OperationSymbol.Divide,
             previousEquations: [],
-            index: -1,
+            index: 0,
           },
           OperationSymbol.Equal
         )
@@ -342,7 +322,7 @@ describe("Button functions", () => {
             equation: "1 % 2",
             operation: OperationSymbol.Percentage,
             previousEquations: [],
-            index: -1,
+            index: 0,
           },
           OperationSymbol.Equal
         )
@@ -363,7 +343,7 @@ describe("Button functions", () => {
             equation: "3 √ 64",
             operation: OperationSymbol.Divide,
             previousEquations: [],
-            index: -1,
+            index: 0,
           },
           OperationSymbol.Equal
         )
@@ -384,7 +364,49 @@ describe("Button functions", () => {
             equation: "2 x 4",
             operation: OperationSymbol.Multiply,
             previousEquations: [],
-            index: -1,
+            index: 0,
+          },
+          OperationSymbol.Equal
+        )
+      ).toStrictEqual(expectedResult);
+    });
+
+    test("should multiply 2 negative numbers", () => {
+      const expectedResult = {
+        equation: "8",
+        operation: OperationSymbol.Equal,
+        previousEquations: ["-2 x -4"],
+        index: 0,
+      };
+
+      expect(
+        FormatEquation(
+          {
+            equation: "-2 x -4",
+            operation: OperationSymbol.Multiply,
+            previousEquations: [],
+            index: 0,
+          },
+          OperationSymbol.Equal
+        )
+      ).toStrictEqual(expectedResult);
+    });
+
+    test("should add 2 negative numbers", () => {
+      const expectedResult = {
+        equation: "-6",
+        operation: OperationSymbol.Equal,
+        previousEquations: ["-2 + -4"],
+        index: 0,
+      };
+
+      expect(
+        FormatEquation(
+          {
+            equation: "-2 + -4",
+            operation: OperationSymbol.Add,
+            previousEquations: [],
+            index: 0,
           },
           OperationSymbol.Equal
         )
@@ -398,7 +420,7 @@ describe("Button functions", () => {
         equation: "0",
         operation: OperationSymbol.Clear,
         previousEquations: [],
-        index: -1,
+        index: 0,
       };
 
       expect(
@@ -407,7 +429,7 @@ describe("Button functions", () => {
             equation: "0",
             operation: OperationSymbol.Clear,
             previousEquations: ["2 x 4", "3 / 6"],
-            index: -1,
+            index: 0,
           },
           OperationSymbol.Clear
         )
@@ -416,10 +438,10 @@ describe("Button functions", () => {
 
     test("should recall previous equation", () => {
       const expectedResult = {
-        equation: "3 / 6",
-        operation: OperationSymbol.Equal,
+        equation: "2 x 4",
+        operation: OperationSymbol.Up,
         previousEquations: ["2 x 4", "3 / 6", "1 % 2"],
-        index: 1,
+        index: 0,
       };
 
       expect(
@@ -428,7 +450,7 @@ describe("Button functions", () => {
             equation: "50",
             operation: OperationSymbol.Equal,
             previousEquations: ["2 x 4", "3 / 6", "1 % 2"],
-            index: 2,
+            index: -1,
           },
           OperationSymbol.Up
         )
@@ -438,7 +460,7 @@ describe("Button functions", () => {
     test("should recall next equation in memory", () => {
       const expectedResult = {
         equation: "1 % 2",
-        operation: OperationSymbol.Percentage,
+        operation: OperationSymbol.Down,
         previousEquations: ["2 x 4", "3 / 6", "1 % 2"],
         index: 2,
       };
@@ -449,9 +471,118 @@ describe("Button functions", () => {
             equation: "0",
             operation: OperationSymbol.Percentage,
             previousEquations: ["2 x 4", "3 / 6", "1 % 2"],
-            index: 1,
+            index: -1,
           },
           OperationSymbol.Down
+        )
+      ).toStrictEqual(expectedResult);
+    });
+
+    test("number input should create new equation after recalling memory", () => {
+      const expectedResult = {
+        equation: "1",
+        operation: OperationSymbol.Down,
+        previousEquations: ["2 x 4", "3 / 6", "1 % 2"],
+        index: -1,
+      };
+
+      expect(
+        FormatEquation(
+          {
+            equation: "0",
+            operation: OperationSymbol.Down,
+            previousEquations: ["2 x 4", "3 / 6", "1 % 2"],
+            index: 2,
+          },
+          "1"
+        )
+      ).toStrictEqual(expectedResult);
+    });
+  });
+
+  describe("Toggle Negative Operations", () => {
+    test("user should be able to create a negative number", () => {
+      const expectedResult = {
+        equation: "-",
+        operation: "",
+        previousEquations: [],
+        index: 0,
+      };
+
+      expect(
+        FormatEquation(
+          {
+            equation: "0",
+            operation: "",
+            previousEquations: [],
+            index: 0,
+          },
+          OperationSymbol.ToggleNegative
+        )
+      ).toStrictEqual(expectedResult);
+    });
+
+    test("user should be able to turn a positive number to negative", () => {
+      const expectedResult = {
+        equation: "-1",
+        operation: "",
+        previousEquations: [],
+        index: 0,
+      };
+
+      expect(
+        FormatEquation(
+          {
+            equation: "1",
+            operation: "",
+            previousEquations: [],
+            index: 0,
+          },
+          OperationSymbol.ToggleNegative
+        )
+      ).toStrictEqual(expectedResult);
+    });
+
+    test("user should be able to input a negative number after an operation", () => {
+      const expectedResult = {
+        equation: "-1 * -",
+        operation: "*",
+        previousEquations: [],
+        index: 0,
+      };
+
+      expect(
+        FormatEquation(
+          {
+            equation: "-1 * ",
+            operation: "*",
+            previousEquations: [],
+            index: 0,
+          },
+          OperationSymbol.ToggleNegative
+        )
+      ).toStrictEqual(expectedResult);
+    });
+  });
+
+  describe("Toggle Negative Operations", () => {
+    test("Operation error message should appear if user inputs an unrecognisable input", () => {
+      const expectedResult = {
+        equation: ErrorCode.InvalidOperation,
+        operation: "",
+        previousEquations: [],
+        index: 0,
+      };
+
+      expect(
+        FormatEquation(
+          {
+            equation: "0",
+            operation: "",
+            previousEquations: [],
+            index: 0,
+          },
+          "$"
         )
       ).toStrictEqual(expectedResult);
     });
