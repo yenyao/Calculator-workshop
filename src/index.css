@@ -1,5 +1,4 @@
 body {
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +9,83 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+#root{
+  display:inline-block;
+  background-color: blue;
+  padding:3px;
+  border-radius: 10px;
+  border: 4px solid #2F3D3D;
+  background-color: #3B4C4C;
+}
+
+.result-display{
+  background-color: #f6eae0;
+  border-radius: 5px 5px 5px 5px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  padding-left:3px;
+  padding-right:3px;
+  box-shadow: 1.5px 2px #1e2020;
+  margin-bottom: 5px;
+}
+
+.wrapper {
+  background-color: #3B4C4C;
+  display: inline-block;
+  padding-left:5px;
+  padding-right:5px;
+  border-radius: 0px 0px 5px 5px;
+  
+}
+
+.calc-button{
+  background-color: #ce422b;
+  border: none;
+  width: 30px;
+  height: 20px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-radius: 7px;
+  border:1px solid black;
+  box-shadow: 1.5px 1px #1e2020;
+}
+
+.calc-button:hover {
+  background-color: #CC6859;
+}
+
+.calc-button:active{
+  background-color: #CC8B82;
+}
+
+.memory-button-wrapper
+{
+  padding-left:5px;
+}
+
+.memory-button{
+  background-color: #ce422b;
+  border: none;
+  width: 30px;
+  height: 20px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-radius: 7px;
+  border:1px solid black;
+  box-shadow: 1.5px 1px #1e2020;
+}
+
+.memory-button:hover{
+  background-color: #CC6859;
+}
+
+.memory-button:active{
+  background-color: #CC8B82;
 }

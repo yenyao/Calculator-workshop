@@ -19,8 +19,12 @@ function App() {
   return (
     <>
       <div className="result-display">{display.equation}</div>
-      <button onClick={() => newDisplay(OperationSymbol.Up)}>{"↑"}</button>
-      <button onClick={() => newDisplay(OperationSymbol.Down)}>{"↓"}</button>
+      <div className="memory-button-wrapper">
+        <div className="mem-buttons-row">
+          <button className="memory-button" onClick={() => newDisplay(OperationSymbol.Up)}>{"↑"}</button>
+          <button className="memory-button" onClick={() => newDisplay(OperationSymbol.Down)}>{"↓"}</button>
+        </div>
+      </div>
       <Numpad CalcInput={newDisplay} />
     </>
   );
