@@ -41,18 +41,27 @@ code {
   
 }
 
+.calc-buttons-row{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 .calc-button{
   background-color: #ce422b;
   border: none;
   width: 30px;
   height: 20px;
-  margin-left: 2px;
-  margin-right: 2px;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  flex: 1 0 calc(20% - 5px);
+  margin: 2px;
   border-radius: 7px;
   border:1px solid black;
   box-shadow: 1.5px 1px #1e2020;
+}
+
+.calc-button:nth-child(1)
+{
+  order: -1;
 }
 
 .calc-button:hover {
@@ -61,11 +70,20 @@ code {
 
 .calc-button:active{
   background-color: #CC8B82;
+  box-shadow: 0px 0px #1e2020;
 }
 
 .memory-button-wrapper
 {
   padding-left:5px;
+  padding-right:5px;
+}
+
+.mem-buttons-row
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .memory-button{
@@ -73,13 +91,15 @@ code {
   border: none;
   width: 30px;
   height: 20px;
-  margin-left: 2px;
-  margin-right: 2px;
-  margin-top: 2px;
-  margin-bottom: 2px;
+  flex: 1 0 calc(20% - 5px);
+  margin: 2px;
   border-radius: 7px;
   border:1px solid black;
   box-shadow: 1.5px 1px #1e2020;
+}
+
+.memory-button:nth-child(1){
+  order: -1;
 }
 
 .memory-button:hover{
